@@ -6,11 +6,12 @@ const PORT = process.env.PORT || 1000
 
 const twilio = require('twilio')
 const express = require('express')
+const cors = require('cors')
 
 const twilioClient = twilio(accountSid, authToken);
 const expressApp = express()
 
-expressApp.get("/getIceServers", async(req, res)=>{
+expressApp.get("/getIceServers", cors(), async(req, res)=>{
 		try{
 			const token = await twilioClient.tokens.create()
 			response = token.iceServers
