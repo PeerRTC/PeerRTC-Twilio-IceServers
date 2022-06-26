@@ -10,11 +10,20 @@ const express = require('express')
 const twilioClient = twilio(accountSid, authToken);
 const expressApp = express()
 
-expressApp.get("/getIceServers", (req, res)=>{
-		twilioClient.tokens.create().then(token => res.send(token.iceServers));
+expressApp.get("/getIceServers", async(req, res)=>{
+		try{
+			const token = await twilioClient.tokens.create()
+			response = token.iceServers
+		}catch(e){
+			// Unexpected error occured or reached twilio free limit.
+			response = []
+		}
+
+		res.send(response)
+		
 })
 
 expressApp.listen(PORT, HOST, ()=>{
-	console.log("Server started")
+	console.log("Server started.")
 })
 
