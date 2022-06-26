@@ -2,7 +2,7 @@ const accountSid = process.env.SID
 const authToken = process.env.TOKEN
 
 const HOST = "0.0.0.0"
-const PORT = 1000 | process.env.PORT
+const PORT = process.env.PORT || 1000
 
 const twilio = require('twilio')
 const express = require('express')
